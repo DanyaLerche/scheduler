@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Составитель расписаний</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}" />
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+    <script src="{{ url_for('static', path='/app.js') }}" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">S</div>
+          <div>
+            <h1>Составитель расписаний</h1>
+            <p>Жадный алгоритм</p>
+          </div>
+        </div>
+        <div class="toolbar">
+          <button id="load-sample" class="tool-button" type="button" title="Загрузить пример">
+            <i data-lucide="database"></i>
+            <span>Пример</span>
+          </button>
+          <button id="import-json" class="tool-button" type="button" title="Импортировать JSON">
+            <i data-lucide="upload"></i>
+            <span>Импорт</span>
+          </button>
+          <button id="export-json" class="tool-button" type="button" title="Экспортировать JSON">
+            <i data-lucide="download"></i>
+            <span>Экспорт</span>
+          </button>
+          <button id="generate" class="primary-button" type="button" title="Составить расписание">
+            <i data-lucide="play"></i>
+            <span>Составить</span>
+          </button>
+          <input id="json-file" type="file" accept="application/json" hidden />
+        </div>
+      </header>
+
+      <div id="status" class="status" role="status"></div>
+
+      <div class="content-grid">
+        <aside class="data-panel">
+          <div class="panel-head">
+            <h2>Исходные данные</h2>
+            <button id="add-row" class="icon-button" type="button" title="Добавить строку">
+              <i data-lucide="plus"></i>
+            </button>
+          </div>
+          <div id="tabs" class="tabs" role="tablist"></div>
+          <div id="editor" class="editor"></div>
+        </aside>
+
+        <main class="result-panel">
+          <section class="metrics" id="metrics"></section>
+
+          <section class="comparison-section">
+            <div class="section-head">
+              <h2>Сравнение алгоритмов</h2>
+            </div>
+            <div class="table-shell">
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Алгоритм</th>
+                    <th>Размещено</th>
+                    <th>Не размещено</th>
+                    <th>Конфликты</th>
+                    <th>Заполнение</th>
+                    <th>Время</th>
+                  </tr>
+                </thead>
+                <tbody id="comparison-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="schedule-section">
+            <div class="section-head">
+              <h2>Расписание</h2>
+              <span id="schedule-count" class="section-count"></span>
+            </div>
+            <div id="schedule" class="schedule-grid"></div>
+          </section>
+
+          <section class="bottom-grid">
+            <div class="list-panel">
+              <div class="section-head">
+                <h2>Конфликты</h2>
+                <span id="conflict-count" class="section-count"></span>
+              </div>
+              <div id="conflicts" class="event-list"></div>
+            </div>
+            <div class="list-panel">
+              <div class="section-head">
+                <h2>Не размещено</h2>
+                <span id="unscheduled-count" class="section-count"></span>
+              </div>
+              <div id="unscheduled" class="event-list"></div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
