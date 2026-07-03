@@ -1,19 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
 :root {
   color-scheme: light;
-  --bg: #f5f6f8;
+  --bg: #f9f9f9;
   --panel: #ffffff;
-  --panel-strong: #eef2f5;
-  --text: #17202a;
-  --muted: #65717f;
-  --line: #d7dde4;
-  --line-strong: #b9c2cc;
-  --blue: #2563eb;
-  --blue-dark: #1d4ed8;
-  --green: #12805c;
-  --amber: #a16207;
-  --red: #b42318;
-  --cyan: #0e7490;
-  --shadow: 0 12px 28px rgba(23, 32, 42, 0.08);
+  --panel-strong: #f2f2f2;
+  --panel-soft: #fbfbfb;
+  --text: #111111;
+  --muted: #707070;
+  --muted-strong: #505050;
+  --line: #e5e5e5;
+  --line-strong: #d0d0d0;
+  --primary: #a8e832;
+  --primary-soft: #eaffcc;
+  --primary-pale: #f7ffe6;
+  --primary-dark: #4a7a00;
+  --black: #111111;
+  --black-hover: #333333;
+  --warning: #f5d060;
+  --warning-dark: #8a6200;
+  --error: #e05050;
+  --error-soft: #fff1f1;
+  --info: #60c0f0;
+  --info-soft: #e6f7ff;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -24,6 +35,7 @@ html,
 body {
   margin: 0;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -33,6 +45,7 @@ body {
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 14px;
   letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -45,36 +58,43 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  cursor: not-allowed;
+}
+
 .app-shell {
   min-height: 100vh;
-  padding: 18px;
+  padding: 0 24px 24px;
 }
 
 .topbar {
   align-items: center;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid var(--line);
   display: flex;
   gap: 16px;
   justify-content: space-between;
-  min-height: 72px;
-  padding: 12px 14px;
+  margin: 0 -24px 16px;
+  min-height: 64px;
+  padding: 10px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
 }
 
 .brand {
   align-items: center;
   display: flex;
   gap: 12px;
-  min-width: 220px;
+  min-width: 240px;
 }
 
 .brand-mark {
   align-items: center;
-  background: #17202a;
-  border-radius: 8px;
-  color: #ffffff;
+  background: var(--primary);
+  border-radius: 16px;
+  color: var(--text);
   display: grid;
   flex: 0 0 42px;
   font-weight: 800;
@@ -84,14 +104,22 @@ button {
 }
 
 .brand h1 {
-  font-size: 20px;
-  line-height: 1.2;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.15;
   margin: 0;
 }
 
 .brand p {
-  color: var(--muted);
-  margin: 2px 0 0;
+  background: var(--panel-strong);
+  border-radius: 999px;
+  color: var(--muted-strong);
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  margin: 5px 0 0;
+  padding: 5px 9px;
 }
 
 .toolbar {
@@ -108,48 +136,66 @@ button {
 .row-action {
   align-items: center;
   border: 1px solid var(--line-strong);
-  border-radius: 8px;
+  border-radius: 999px;
   display: inline-flex;
   gap: 8px;
   justify-content: center;
-  min-height: 38px;
+  min-height: 40px;
   transition:
     background 0.16s ease,
     border-color 0.16s ease,
-    color 0.16s ease;
+    box-shadow 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
 }
 
 .tool-button {
-  background: #ffffff;
+  background: var(--panel);
   color: var(--text);
-  padding: 0 12px;
+  font-weight: 600;
+  padding: 0 14px;
 }
 
 .tool-button:hover,
 .icon-button:hover,
 .row-action:hover {
-  background: #eef2f5;
-  border-color: #9aa6b2;
+  background: var(--panel-strong);
+  border-color: var(--line-strong);
+}
+
+.tool-button:active,
+.primary-button:active,
+.icon-button:active,
+.row-action:active {
+  transform: scale(0.98);
 }
 
 .primary-button {
-  background: var(--blue);
-  border-color: var(--blue);
+  background: var(--black);
+  border-color: var(--black);
   color: #ffffff;
-  padding: 0 14px;
+  font-weight: 700;
+  padding: 0 18px;
 }
 
 .primary-button:hover {
-  background: var(--blue-dark);
-  border-color: var(--blue-dark);
+  background: var(--black-hover);
+  border-color: var(--black-hover);
+  box-shadow: var(--shadow-card);
 }
 
 .icon-button,
 .row-action {
-  background: #ffffff;
+  background: var(--panel);
   color: var(--text);
-  height: 34px;
+  height: 38px;
   padding: 0;
+  width: 38px;
+}
+
+.row-action {
+  height: 34px;
+  min-height: 34px;
   width: 34px;
 }
 
@@ -163,18 +209,23 @@ button {
 
 .status {
   color: var(--muted);
-  min-height: 30px;
-  padding: 8px 2px 4px;
+  margin: 0 auto;
+  max-width: 1440px;
+  min-height: 32px;
+  padding: 7px 2px 9px;
 }
 
 .status.error {
-  color: var(--red);
+  color: var(--error);
+  font-weight: 600;
 }
 
 .content-grid {
   display: grid;
   gap: 16px;
   grid-template-columns: minmax(340px, 430px) minmax(0, 1fr);
+  margin: 0 auto;
+  max-width: 1440px;
 }
 
 .data-panel,
@@ -183,8 +234,8 @@ button {
 .list-panel {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: var(--shadow);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
 }
 
 .data-panel {
@@ -206,50 +257,66 @@ button {
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  min-height: 54px;
-  padding: 12px 14px;
+  min-height: 58px;
+  padding: 14px 16px;
 }
 
 .panel-head h2,
 .section-head h2 {
   font-size: 16px;
+  font-weight: 800;
   line-height: 1.25;
   margin: 0;
 }
 
 .section-count {
-  color: var(--muted);
-  font-size: 13px;
+  background: var(--panel-strong);
+  border-radius: 999px;
+  color: var(--muted-strong);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 9px;
 }
 
 .tabs {
   background: var(--panel-strong);
   border-bottom: 1px solid var(--line);
   display: grid;
+  gap: 7px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
-  padding: 8px;
+  padding: 9px;
 }
 
 .tab-button {
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 8px;
-  color: var(--muted);
-  min-height: 34px;
+  border-radius: 999px;
+  color: var(--muted-strong);
+  font-weight: 600;
+  min-width: 0;
+  min-height: 36px;
   overflow-wrap: anywhere;
-  padding: 0 8px;
+  padding: 0 10px;
+  white-space: normal;
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.tab-button:hover {
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .tab-button.active {
-  background: #ffffff;
-  border-color: var(--line);
-  color: var(--text);
-  font-weight: 700;
+  background: var(--primary-soft);
+  border-color: #d8f6a8;
+  color: var(--primary-dark);
+  font-weight: 800;
 }
 
 .editor {
-  max-height: calc(100vh - 210px);
+  max-height: calc(100vh - 215px);
   overflow: auto;
   padding: 12px;
 }
@@ -272,7 +339,7 @@ button {
 .day-table th,
 .day-table td {
   border-bottom: 1px solid var(--line);
-  padding: 9px 8px;
+  padding: 10px 9px;
   text-align: left;
   vertical-align: top;
 }
@@ -280,34 +347,50 @@ button {
 .editor-table th,
 .comparison-table th,
 .day-table th {
-  background: #f8fafc;
-  color: #3c4652;
+  background: var(--panel-soft);
+  color: var(--muted-strong);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.25;
+}
+
+.editor-table tbody tr,
+.comparison-table tbody tr,
+.day-table tbody tr {
+  transition: background 0.14s ease;
+}
+
+.editor-table tbody tr:hover,
+.comparison-table tbody tr:hover,
+.day-table tbody tr:hover {
+  background: #fdfdfd;
 }
 
 .editor-table th:last-child,
 .editor-table td:last-child {
   text-align: center;
-  width: 42px;
+  width: 46px;
 }
 
 .field-input,
 .field-select {
-  background: #ffffff;
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
   color: var(--text);
-  min-height: 34px;
-  padding: 6px 8px;
+  min-height: 38px;
+  padding: 8px 11px;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
   width: 100%;
 }
 
 .field-input:focus,
 .field-select:focus {
-  border-color: var(--blue);
-  outline: 2px solid rgba(37, 99, 235, 0.14);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(168, 232, 50, 0.18);
+  outline: none;
 }
 
 .table-shell {
@@ -332,35 +415,57 @@ button {
 .metric {
   background: var(--panel);
   border: 1px solid var(--line);
-  border-left: 4px solid var(--blue);
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-  min-height: 82px;
-  padding: 12px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  min-height: 92px;
+  padding: 16px;
+  position: relative;
+  transition:
+    box-shadow 0.16s ease,
+    transform 0.16s ease;
 }
 
-.metric.green {
-  border-left-color: var(--green);
+.metric::before {
+  background: var(--info);
+  border-radius: 999px;
+  content: "";
+  height: 6px;
+  left: 16px;
+  position: absolute;
+  top: 13px;
+  width: 42px;
 }
 
-.metric.amber {
-  border-left-color: var(--amber);
+.metric:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 
-.metric.red {
-  border-left-color: var(--red);
+.metric.green::before {
+  background: var(--primary);
+}
+
+.metric.amber::before {
+  background: var(--warning);
+}
+
+.metric.red::before {
+  background: var(--error);
 }
 
 .metric span {
   color: var(--muted);
   display: block;
   font-size: 12px;
+  font-weight: 600;
+  margin-top: 12px;
 }
 
 .metric strong {
   display: block;
-  font-size: 26px;
-  line-height: 1.15;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
   margin-top: 7px;
 }
 
@@ -372,22 +477,23 @@ button {
 
 .day-block {
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 16px;
   overflow: hidden;
 }
 
 .day-title {
   align-items: center;
-  background: #f8fafc;
+  background: var(--panel-soft);
   border-bottom: 1px solid var(--line);
   display: flex;
   justify-content: space-between;
-  min-height: 42px;
-  padding: 9px 10px;
+  min-height: 46px;
+  padding: 10px 12px;
 }
 
 .day-title h3 {
   font-size: 15px;
+  font-weight: 800;
   margin: 0;
 }
 
@@ -403,34 +509,37 @@ button {
 .slot-time {
   color: var(--muted);
   font-size: 12px;
+  font-weight: 600;
   white-space: nowrap;
 }
 
 .lesson-pill {
-  background: #ecfeff;
-  border: 1px solid #a5f3fc;
-  border-left: 4px solid var(--cyan);
-  border-radius: 8px;
+  background: var(--primary-pale);
+  border: 1px solid #ddf7ad;
+  border-left: 5px solid var(--primary);
+  border-radius: 14px;
   display: grid;
-  gap: 4px;
-  min-height: 70px;
+  gap: 5px;
+  min-height: 76px;
   overflow-wrap: anywhere;
-  padding: 8px;
+  padding: 10px;
 }
 
 .lesson-pill strong {
+  color: var(--text);
   font-size: 13px;
+  font-weight: 800;
   line-height: 1.25;
 }
 
 .lesson-pill span {
-  color: #475569;
+  color: var(--muted-strong);
   font-size: 12px;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .empty-cell {
-  color: #9aa6b2;
+  color: #a0a0a0;
   font-size: 12px;
 }
 
@@ -449,11 +558,12 @@ button {
 }
 
 .event-item {
+  background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 14px;
   display: grid;
   gap: 5px;
-  padding: 10px;
+  padding: 12px;
 }
 
 .event-item strong {
@@ -467,11 +577,15 @@ button {
 }
 
 .event-item.conflict {
-  border-left: 4px solid var(--red);
+  background: var(--error-soft);
+  border-color: #ffd4d4;
+  border-left: 5px solid var(--error);
 }
 
 .event-item.pending {
-  border-left: 4px solid var(--amber);
+  background: #fff9e8;
+  border-color: #f7df98;
+  border-left: 5px solid var(--warning);
 }
 
 .empty-state {
@@ -491,21 +605,37 @@ button {
 
 @media (max-width: 760px) {
   .app-shell {
-    padding: 10px;
+    padding: 0 12px 18px;
   }
 
   .topbar {
     align-items: stretch;
     flex-direction: column;
+    margin: 0 -12px 12px;
+    padding: 10px 12px 12px;
+  }
+
+  .brand {
+    min-width: 0;
   }
 
   .toolbar {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: stretch;
+    max-width: 100%;
+    width: 100%;
   }
 
   .tool-button,
   .primary-button {
-    flex: 1 1 132px;
+    flex: none;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .primary-button {
+    grid-column: 1 / -1;
   }
 
   .tabs {
@@ -519,5 +649,11 @@ button {
 
   .day-table {
     min-width: 760px;
+  }
+}
+
+@media (max-width: 520px) {
+  .toolbar {
+    grid-template-columns: 1fr;
   }
 }
